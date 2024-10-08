@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.modelo.Endereco;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -17,9 +19,7 @@ public class PrincipalComBusca {
             System.out.println("Digite um CEP para buscar: ");
             busca = leitura.nextLine();
 
-            endereco = "https://viacep.com.br/ws/"+
-                    busca.replace(" ", "")
-                    +"/json";
+
 
 
 
@@ -33,6 +33,10 @@ public class PrincipalComBusca {
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                 System.out.println(response);
                 System.out.println(response.body());
+
+                SaveLocally saveLocally = new SaveLocally();
+
+
 
                // Gson gson = new GsonBuilder()
                 //        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
