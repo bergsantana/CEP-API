@@ -13,15 +13,16 @@ public class SaveLocally {
     private Gson gson;
     private FileWriter fileWriter;
 
-    SaveLocally() throws IOException{
+    SaveLocally(String cep) throws IOException{
         this.gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
                 .create();
-        this.fileWriter = new FileWriter("enderecos.json");
+        this.fileWriter = new FileWriter(cep + ".json");
     }
 
-    public void SaveAddressAsJson(Endereco enderecos) throws IOException {
-        fileWriter.write(gson.toJson(enderecos));
+    public void SaveAddressAsJson(String endereco) throws IOException {
+
+        fileWriter.write(gson.toJson(endereco));
         fileWriter.close();
 
         System.out.println("Enderecos salvo com sucesso");

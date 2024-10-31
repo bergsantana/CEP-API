@@ -13,38 +13,29 @@ public class PrincipalComBusca {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner leitura = new Scanner(System.in);
         String busca = "";
-        String endereco = "";
+        // String endereco = "";
+        Search buscador = new Search();
+
+
         while (!busca.equalsIgnoreCase("sair")){
 
             System.out.println("Digite um CEP para buscar: ");
             busca = leitura.nextLine();
 
+           //  endereco =  "https://viacep.com.br/ws/" + busca + "/json";
 
-
-
+            System.out.println("Buscando - " + busca);
 
             try {
-                HttpClient client = HttpClient.newHttpClient();
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(endereco))
-                        .build();
+
+                String body = buscador.getDetailsFromCep(busca);
+                System.out.println("Body" + body);
+
+                SaveLocally saveLocally = new SaveLocally(busca);
 
 
-                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                System.out.println(response);
-                System.out.println(response.body());
+                saveLocally.SaveAddressAsJson(body);
 
-                SaveLocally saveLocally = new SaveLocally();
-
-
-
-               // Gson gson = new GsonBuilder()
-                //        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                //        .create();
-
-
-                // TituloOmdb tituloOmdb = gson.fromJson(response.body(), TituloOmdb.class);
-               // System.out.println(tituloOmdb);
 
             } catch (NumberFormatException e ) {
                 System.out.println("Aconteceu um erro");
